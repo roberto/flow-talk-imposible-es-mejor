@@ -1,0 +1,25 @@
+{
+  "name": "flow-type-talk",
+  "version": "0.0.1",
+  "description": "Talk about Flow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "reveal-md slides.md --theme thoughtworks --title 'Impossible is better'",
+    "build": "mkdir -p dist && cp -r {images,theme} dist && cp -r node_modules/reveal.js/{css,js,lib,plugin} dist && reveal-md slides.md --theme thoughtworks --title 'Impossible is better' --static > dist/index.html",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roberto/flow-type-talk.git"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roberto/flow-type-talk/issues"
+  },
+  "homepage": "https://github.com/roberto/flow-type-talk#readme",
+  "dependencies": {
+    "gh-pages": "^0.11.0",
+    "reveal-md": "0.0.30"
+  }
+}
