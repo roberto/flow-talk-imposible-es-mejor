@@ -141,10 +141,14 @@ Mejora algo
 
 ```js
 sendData('step4', 'submit', 'buying', null, true) // forced to pass id null
-sendData({page: 'step4', action: 'submit', label: 'buying'})
 
 sendData('faq', 123, true, 'not-found') // wrong values
+```
+
+```js
 sendData({page: 'faq', action: 123, label: true, id: 'not-found'})
+
+sendData({page: 'step4', action: 'submit', label: 'buying'}) // wrong values
 ```
 
 ---
