@@ -7,7 +7,7 @@
 Nuestro Ejemplo
 
 ```js
-function sendData (page, action, label, id, isError) {
+function sendAnalytics (page, action, label, id, isError) {
   if (!label || !action || !page) {
     throw new Error('Cannot send event')
   }
@@ -22,9 +22,9 @@ Note: our example
 ¿Cuál es la orden? Label después de action?
 
 ```js
-sendData('home', 'click', 'next')
-sendData('faq', 'click', 'not-found', 123, true)
-sendData('step4', 'submit', 'buying', null, false)
+sendAnalytics('home', 'click', 'next')
+sendAnalytics('faq', 'click', 'not-found', 123, true)
+sendAnalytics('step4', 'submit', 'buying', null, false)
 ```
 
 Note: using the function. you have to check the order and types
@@ -34,9 +34,9 @@ Note: using the function. you have to check the order and types
 ¡Error!
 
 ```js
-sendData('step4')
-sendData('step4', 'click')
-sendData()
+sendAnalytics('step4')
+sendAnalytics('step4', 'click')
+sendAnalytics()
 ```
 
 ```
@@ -50,7 +50,7 @@ Note: Forget something and it will throw an error
 Muchos escenarios -> muchas pruebas
 
 ```js
-describe('sendData', () => {
+describe('sendAnalytics', () => {
   context('correct arguments', () => {
     //(...)
   })
@@ -68,7 +68,7 @@ describe('sendData', () => {
 ```js
 describe('A component', () => {
   it('sends data to analytics', () => {
-    expect(sendData).toHaveBeenCalledWith('home', 'click', 'next')
+    expect(sendAnalytics).toHaveBeenCalledWith('home', 'click', 'next')
   })
 })
 ```
@@ -81,10 +81,10 @@ Mismo con verificación de parámetros y pruebas...
 
 ```js
 // forced to pass id null
-sendData('step4', 'submit', 'buying', null, true)
+sendAnalytics('step4', 'submit', 'buying', null, true)
 
 // wrong values
-sendData('faq', 123, true, 'not-found')
+sendAnalytics('faq', 123, true, 'not-found')
 ```
 
 Note: even with tests we can have a lot of issues
@@ -98,7 +98,7 @@ Note: even with tests we can have a lot of issues
 Objeto como parámetro
 
 ```js
-function sendData (data) {
+function sendAnalytics (data) {
   console.log(data.page)
   console.log(data.action)
   //(...)
@@ -106,7 +106,7 @@ function sendData (data) {
 ```
 
 ```js
-const sendData = ({page, action, label, id, isError}) => {
+const sendAnalytics = ({page, action, label, id, isError}) => {
   console.log(page)
   console.log(action)
   //(...)
@@ -120,9 +120,9 @@ Note: object as argument
 
 La orden no es más importante
 ```js
-sendData({page: 'home', action: 'click', label: 'next'})
-sendData({page: 'step4', action: 'submit', label: 'buying', isError: false})
-sendData({page: 'faq', action: 'click', label: 'not-found', id: 123, isError: true})
+sendAnalytics({page: 'home', action: 'click', label: 'next'})
+sendAnalytics({page: 'step4', action: 'submit', label: 'buying', isError: false})
+sendAnalytics({page: 'faq', action: 'click', label: 'not-found', id: 123, isError: true})
 ```
 
 ----
@@ -130,9 +130,9 @@ sendData({page: 'faq', action: 'click', label: 'not-found', id: 123, isError: tr
 Pero aún tenemos errores
 
 ```js
-sendData({page: 'step4'})
-sendData({page: 'step4', action: 'click'})
-sendData()
+sendAnalytics({page: 'step4'})
+sendAnalytics({page: 'step4', action: 'click'})
+sendAnalytics()
 ```
 
 ----
@@ -140,15 +140,15 @@ sendData()
 Mejora algo
 
 ```js
-sendData('step4', 'submit', 'buying', null, true) // forced to pass id null
+sendAnalytics('step4', 'submit', 'buying', null, true) // forced to pass id null
 
-sendData('faq', 123, true, 'not-found') // wrong values
+sendAnalytics('faq', 123, true, 'not-found') // wrong values
 ```
 
 ```js
-sendData({page: 'faq', action: 123, label: true, id: 'not-found'})
+sendAnalytics({page: 'faq', action: 123, label: true, id: 'not-found'})
 
-sendData({page: 'step4', action: 'submit', label: 'buying'}) // wrong values
+sendAnalytics({page: 'step4', action: 'submit', label: 'buying'}) // wrong values
 ```
 
 ---
@@ -197,7 +197,7 @@ src/sum.js:40
 Intentando usar
 
 ```js
-const sendData = (data: {page: string, action: string, label: string, id: number, isError: boolean}) => {
+const sendAnalytics = (data: {page: string, action: string, label: string, id: number, isError: boolean}) => {
   //(...)
 }
 ```
@@ -215,7 +215,7 @@ type Event = {
   isError: boolean
 }
 
-const sendData = (data: Event) => {
+const sendAnalytics = (data: Event) => {
   //(...)
 }
 ```
@@ -225,7 +225,7 @@ const sendData = (data: Event) => {
 Todos los parámetros
 
 ```js
-sendData({page: 'step4', action: 'submit', label: 'buying', isError: false})
+sendAnalytics({page: 'step4', action: 'submit', label: 'buying', isError: false})
 ```
 
 ----
@@ -241,7 +241,7 @@ type Event = {
   isError?: boolean
 }
 
-const sendData = (data: Event) => {
+const sendAnalytics = (data: Event) => {
   //(...)
 }
 ```
@@ -251,18 +251,18 @@ const sendData = (data: Event) => {
 Más flexible
 
 ```js
-sendData({page: 'faq', action: 'click', label: 'question'})
-sendData({page: 'faq', action: 'click', label: 'question', id: 1234})
+sendAnalytics({page: 'faq', action: 'click', label: 'question'})
+sendAnalytics({page: 'faq', action: 'click', label: 'question', id: 1234})
 ```
 
 Pero...
 
 ```js
 // ZID
-sendData({page: 'faq', action: 'click', label: 'question', ZID: 1234})
+sendAnalytics({page: 'faq', action: 'click', label: 'question', ZID: 1234})
 
 //category
-sendData({page: 'faq', action: 'click', label: 'question', category: 'beta'})
+sendAnalytics({page: 'faq', action: 'click', label: 'question', category: 'beta'})
 ```
 
 ----
@@ -284,7 +284,7 @@ type Event = {|
 Borrando pruebas
 
 ```js
-describe('sendData', () => {
+describe('sendAnalytics', () => {
   context('correct arguments', () => {
     //(...)
   })
@@ -300,7 +300,7 @@ describe('sendData', () => {
 ```
 
 ```js
-describe('sendData', () => {
+describe('sendAnalytics', () => {
   //(...)
 })
 ```
@@ -312,19 +312,19 @@ empezar con algunos archivos
 ```js
 // @flow
 
-const sendData(...) = () => {
+const sendAnalytics(...) = () => {
 ```
 
 ```js
 // @flow
 
-sendData(...)
+sendAnalytics(...)
 ```
 
 ```js
 // @flow
 
-sendData({id: sum(a, b)})
+sendAnalytics({id: sum(a, b)})
 ```
 más archivos usando -> verificación de integración entre ellos
 
@@ -351,13 +351,13 @@ type Event = {|
   isError?: boolean
 |}
 
-const sendData = (data: Event) => {
+const sendAnalytics = (data: Event) => {
   //(...)
 }
 ```
 
 ```js
-const sendData = (data) => {
+const sendAnalytics = (data) => {
   //(...)
 }
 ```
