@@ -4,16 +4,6 @@
 
 ---
 
-## Roberto Soares
-<hr />
-github @roberto
-
-twitter @bt1
-
-React, Redux, Elm, Functional Programming, Babel
-
----
-
 Nuestro Ejemplo
 
 ```js
@@ -111,12 +101,6 @@ function sendData (data) {
 }
 ```
 
-Note: object as argument
-
-----
-
-¡Babel es mi lenguaje!
-
 ```js
 const sendData = ({page, action, label, id, isError}) => {
   console.log(page)
@@ -124,6 +108,9 @@ const sendData = ({page, action, label, id, isError}) => {
   //(...)
 }
 ```
+¡Babel es mi lenguaje!
+
+Note: object as argument
 
 ----
 
@@ -202,8 +189,7 @@ src/sum.js:40
 Intentando usar
 
 ```js
-const sendData = ({page, action, label, id, isError}:
-  {page: string, action: string, label: string, id: number, isError: boolean}) => {
+const sendData = (data: {page: string, action: string, label: string, id: number, isError: boolean}) => {
   //(...)
 }
 ```
@@ -221,7 +207,7 @@ type Event = {
   isError: boolean
 }
 
-const sendData = ({page, action, label, id, isError}: Event) => {
+const sendData = (data: Event) => {
   //(...)
 }
 ```
@@ -247,7 +233,7 @@ type Event = {
   isError?: boolean
 }
 
-const sendData = ({page, action, label, id, isError}: Event) => {
+const sendData = (data: Event) => {
   //(...)
 }
 ```
@@ -313,24 +299,23 @@ describe('sendData', () => {
 
 ----
 
-* `// @flow`
-  * empeza con algunos archivos
+* empezar con algunos archivos
+  * `// @flow`
   * más archivos usando -> verificación de integración entre ellos
-* Editores: Vim, Sublime, Atom, Visual Studio Code
+* las notas del flow se borran
+
+* Editores: Vim, Emacs, Sublime, Atom, Visual Studio Code, IntelliJ (syntax)
 * Alternativa: TypeScript (Microsoft)
 
 ---
 
-¿The end?
+## ¿The end?
 
 ----
 
-## Roberto Soares
-<hr />
-github @roberto
+github **@roberto**
 
-twitter @bt1
+twitter **@bt1**
 
-React, Redux, Elm, Functional Programming, Babel, Flow
-
-Note: TODO {||}, // @flow
+React, Redux, Elm, Functional Programming, Babel,
+Flow, Ruby, Haskell, Continuous Delivery, Buenas Practicas, TDD
