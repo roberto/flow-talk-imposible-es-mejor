@@ -25,7 +25,21 @@ eventTag('step4', 'click')
 eventTag()
 ```
 
-TODO testes
+```js
+describe('eventTag', () => {
+  context('correct arguments', () => {
+    //(...)
+  })
+  context('incorrect arguments', () => {
+    it('throws error when receives only category')
+    it('throws error when receives only label')
+    it('throws error when receives only action')
+    it('throws error when receives only category and label')
+    it('throws error when receives only category and action')
+    it('throws error when receives only label and action')
+  })
+})
+```
 
 ```js
 eventTag('step4', 'submit', 'buying', null, true) // forced to pass flowId null
@@ -104,4 +118,10 @@ type Event = {
 export const eventTag = ({category, action, label, flowId, isError}: Event) => {
   //(...)
 }
+```
+
+```js
+eventTag({category: 'step4'})
+eventTag({category: 'step4', action: 'click'})
+eventTag() // nope
 ```
