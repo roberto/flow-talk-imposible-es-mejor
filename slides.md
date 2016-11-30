@@ -367,7 +367,7 @@ const sendData = (data) => {
 * Editores: Vim, Emacs, Sublime, Atom, Visual Studio Code, IntelliJ (syntax)
 * Alternativa: TypeScript (Microsoft)
 
-----
+---
 
 ## ¿The end?
 
