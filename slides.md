@@ -1,32 +1,66 @@
+# Pruebas son buenas, pero impossible es mejor
+<hr />
+<h4 class="subtitle">yendo más allá con tipos</h4>
+
+---
+
+## Roberto Soares
+<hr />
+github @roberto
+
+twitter @bt1
+
+React, Redux, Elm, Functional Programming, Babel
+
+---
+
+## Let's refactor this:
+
 ```js
-export function sendAnalyticsData (page, action, label, flowId, isError) {
+export function sendData (page, action, label, flowId, isError) {
   if (!label || !action || !page) {
-    throw new Error('Cannot add event: label, action or page with null value')
+    throw new Error('Cannot send event')
   }
   //(...)
 }
 ```
 
+Note: our example
+
+----
+
 ```js
-export function sendAnalyticsData (page, action, label, flowId, isError) {
+export function sendData (page, action, label, flowId, isError) {
   //(...)
 }
 ```
 
-```js
-sendAnalyticsData('home', 'click', 'next')
-sendAnalyticsData('faq', 'click', 'not-found', '123', true)
-sendAnalyticsData('step4', 'submit', 'buying', null, false)
-```
+Note: let's focus in the params
+
+----
 
 ```js
-sendAnalyticsData('step4')
-sendAnalyticsData('step4', 'click')
-sendAnalyticsData()
+sendData('home', 'click', 'next')
+sendData('faq', 'click', 'not-found', '123', true)
+sendData('step4', 'submit', 'buying', null, false)
 ```
 
+Note: using the function. remember the order, types
+
+----
+
 ```js
-describe('sendAnalyticsData', () => {
+sendData('step4')
+sendData('step4', 'click')
+sendData()
+```
+
+Note: forget something and it will throw an error
+
+----
+
+```js
+describe('sendData', () => {
   context('correct arguments', () => {
     //(...)
   })
@@ -41,15 +75,17 @@ describe('sendAnalyticsData', () => {
 })
 ```
 
+----
+
 ```js
-sendAnalyticsData('step4', 'submit', 'buying', null, true) // forced to pass flowId null
-sendAnalyticsData('faq', '123', true, 'not-found') // wrong values
+sendData('step4', 'submit', 'buying', null, true) // forced to pass flowId null
+sendData('faq', '123', true, 'not-found') // wrong values
 ```
 
 old school
 
 ```js
-export function sendAnalyticsData (data) {
+export function sendData (data) {
   console.log(data.page)
   console.log(data.action)
   //(...)
@@ -59,7 +95,7 @@ export function sendAnalyticsData (data) {
 ES6 - Babel language
 
 ```js
-export const sendAnalyticsData = ({page, action, label, flowId, isError}) => {
+export const sendData = ({page, action, label, flowId, isError}) => {
   console.log(page)
   console.log(action)
   //(...)
@@ -67,25 +103,25 @@ export const sendAnalyticsData = ({page, action, label, flowId, isError}) => {
 ```
 
 ```js
-sendAnalyticsData({page: 'home', action: 'click', label: 'next'})
-sendAnalyticsData({page: 'step4', action: 'submit', label: 'buying', isError: false})
-sendAnalyticsData({page: 'faq', action: 'click', label: 'not-found', flowId: '123', isError: true})
+sendData({page: 'home', action: 'click', label: 'next'})
+sendData({page: 'step4', action: 'submit', label: 'buying', isError: false})
+sendData({page: 'faq', action: 'click', label: 'not-found', flowId: '123', isError: true})
 ```
 
 ```js
-sendAnalyticsData({page: 'step4'})
-sendAnalyticsData({page: 'step4', action: 'click'})
-sendAnalyticsData()
+sendData({page: 'step4'})
+sendData({page: 'step4', action: 'click'})
+sendData()
 ```
 
 TODO testes
 
 ```js
-sendAnalyticsData('step4', 'submit', 'buying', null, true) // forced to pass flowId null
-sendAnalyticsData({page: 'step4', action: 'submit', label: 'buying'})
+sendData('step4', 'submit', 'buying', null, true) // forced to pass flowId null
+sendData({page: 'step4', action: 'submit', label: 'buying'})
 
-sendAnalyticsData('faq', '123', true, 'not-found') // wrong values
-sendAnalyticsData({page: 'faq', action: '123', label: true, flowId: 'not-found'})
+sendData('faq', '123', true, 'not-found') // wrong values
+sendData({page: 'faq', action: '123', label: true, flowId: 'not-found'})
 ```
 
 FLOW!!
@@ -102,7 +138,7 @@ const sum = (a: number, b: number) => a + b
 ```
 
 ```js
-export const sendAnalyticsData = ({page, action, label, flowId, isError}: {page: string, action: string, label: string, flowId: string, isError: boolean}) => {
+export const sendData = ({page, action, label, flowId, isError}: {page: string, action: string, label: string, flowId: string, isError: boolean}) => {
   //(...)
 }
 ```
@@ -118,13 +154,13 @@ type Event = {
   isError: boolean
 }
 
-export const sendAnalyticsData = ({page, action, label, flowId, isError}: Event) => {
+export const sendData = ({page, action, label, flowId, isError}: Event) => {
   //(...)
 }
 ```
 
 ```js
-sendAnalyticsData({page: 'step4', action: 'submit', label: 'buying', isError: false})
+sendData({page: 'step4', action: 'submit', label: 'buying', isError: false})
 ```
 
 Optional values
@@ -138,17 +174,17 @@ type Event = {
   isError?: boolean
 }
 
-export const sendAnalyticsData = ({page, action, label, flowId, isError}: Event) => {
+export const sendData = ({page, action, label, flowId, isError}: Event) => {
   //(...)
 }
 ```
 
 ```js
-sendAnalyticsData({page: 'faq', action: '123', label: true, flowId: 'not-found'})
+sendData({page: 'faq', action: '123', label: true, flowId: 'not-found'})
 ```
 
 ```js
-describe('sendAnalyticsData', () => {
+describe('sendData', () => {
   context('correct arguments', () => {
     //(...)
   })
@@ -164,7 +200,7 @@ describe('sendAnalyticsData', () => {
 ```
 
 ```js
-describe('sendAnalyticsData', () => {
+describe('sendData', () => {
   //(...)
 })
 ```
