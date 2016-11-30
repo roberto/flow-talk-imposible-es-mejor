@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Impossible is better</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="theme/thoughtworks.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template"># Pruebas son buenas, pero impossible es mejor
+<hr />
+<h4 class="subtitle">yendo más allá con tipos</h4>
+</script></section><section ><section data-markdown><script type="text/template">
+Nuestro Ejemplo
+
+```js
+function sendData (page, action, label, id, isError) {
+  if (!label || !action || !page) {
+    throw new Error('Cannot send event')
+  }
+  //(...)
+}
+```
+
+<aside class="notes" data-markdown>our example</aside></script></section><section data-markdown><script type="text/template">
+¿Cuál es la orden? Label después de action?
+
+```js
+sendData('home', 'click', 'next')
+sendData('faq', 'click', 'not-found', 123, true)
+sendData('step4', 'submit', 'buying', null, false)
+```
+
+<aside class="notes" data-markdown>using the function. you have to check the order and types</aside></script></section><section data-markdown><script type="text/template">
+¡Error!
+
+```js
+sendData('step4')
+sendData('step4', 'click')
+sendData()
+```
+
+<aside class="notes" data-markdown>Forget something and it will throw an error</aside></script></section><section data-markdown><script type="text/template">
+Muchos escenarios -> muchas pruebas
+
+```js
+describe('sendData', () => {
+  context('correct arguments', () => {
+    //(...)
+  })
+  context('incorrect arguments', () => {
+    it('throws error when receives only page')
+    it('throws error when receives only label')
+    it('throws error when receives only action')
+    it('throws error when receives only page and label')
+    it('throws error when receives only page and action')
+    it('throws error when receives only label and action')
+  })
+})
+```
+
+```js
+describe('A component', () => {
+  it('sends data to analytics', () => {
+    expect(sendData).toHaveBeenCalledWith('home', 'click', 'next')
+  })
+})
+```
+
+<aside class="notes" data-markdown>A lot of tests for coverage all the scenarios</aside></script></section><section data-markdown><script type="text/template">
+Mismo con verificación de parámetros y pruebas...
+
+```js
+// forced to pass id null
+sendData('step4', 'submit', 'buying', null, true)
+
+// wrong values
+sendData('faq', 123, true, 'not-found')
+```
+
+<aside class="notes" data-markdown>even with tests we can have a lot of issues</aside></script></section></section><section ><section data-markdown><script type="text/template">
+## Empezar la refactorización
+</script></section><section data-markdown><script type="text/template">
+Objeto como parámetro
+
+```js
+function sendData (data) {
+  console.log(data.page)
+  console.log(data.action)
+  //(...)
+}
+```
+
+```js
+const sendData = ({page, action, label, id, isError}) => {
+  console.log(page)
+  console.log(action)
+  //(...)
+}
+```
+¡Babel es mi lenguaje!
+
+<aside class="notes" data-markdown>object as argument</aside></script></section><section data-markdown><script type="text/template">
+La orden no es más importante
+```js
+sendData({page: 'home', action: 'click', label: 'next'})
+sendData({page: 'step4', action: 'submit', label: 'buying', isError: false})
+sendData({page: 'faq', action: 'click', label: 'not-found', id: 123, isError: true})
+```
+</script></section><section data-markdown><script type="text/template">
+Pero aún tenemos errores
+
+```js
+sendData({page: 'step4'})
+sendData({page: 'step4', action: 'click'})
+sendData()
+```
+</script></section><section data-markdown><script type="text/template">
+Mejora algo
+
+```js
+sendData('step4', 'submit', 'buying', null, true) // forced to pass id null
+sendData({page: 'step4', action: 'submit', label: 'buying'})
+
+sendData('faq', 123, true, 'not-found') // wrong values
+sendData({page: 'faq', action: 123, label: true, id: 'not-found'})
+```
+</script></section></section><section ><section data-markdown><script type="text/template">
+<img src="images/flow-logo.png" />
+</script></section><section data-markdown><script type="text/template">
+- Static Type Checker
+- Created by Facebook (React también!)
+</script></section><section data-markdown><script type="text/template">
+Pequeño ejemplo
+
+```js
+const sum = (a, b) => a + b
+```
+
+```js
+const sum = (a: number, b: number) => a + b
+```
+
+```js
+sum(2, 3)
+```
+</script></section><section data-markdown><script type="text/template">
+y si...
+
+```js
+sum(true, 3)
+```
+
+```
+src/sum.js:40
+ 40: sum(true, 2)
+         ^^^^ boolean. This type is incompatible with the expected param type of
+ 38: export const sum = (a: number, b: number) => a + b
+                            ^^^^^^ number
+```
+</script></section><section data-markdown><script type="text/template">
+Intentando usar
+
+```js
+const sendData = (data: {page: string, action: string, label: string, id: number, isError: boolean}) => {
+  //(...)
+}
+```
+</script></section><section data-markdown><script type="text/template">
+¡alias!
+
+```js
+type Event = {
+  page: string,
+  action: string,
+  label: string,
+  id: number,
+  isError: boolean
+}
+
+const sendData = (data: Event) => {
+  //(...)
+}
+```
+</script></section><section data-markdown><script type="text/template">
+Todos los parámetros
+
+```js
+sendData({page: 'step4', action: 'submit', label: 'buying', isError: false})
+```
+</script></section><section data-markdown><script type="text/template">
+? para llaves opcionales
+
+```js
+type Event = {
+  page: string,
+  action: string,
+  label: string,
+  id?: number,
+  isError?: boolean
+}
+
+const sendData = (data: Event) => {
+  //(...)
+}
+```
+</script></section><section data-markdown><script type="text/template">
+Más flexible
+
+```js
+sendData({page: 'faq', action: 'click', label: 'question'})
+sendData({page: 'faq', action: 'click', label: 'question', id: 1234})
+```
+
+Pero...
+
+```js
+// ZID
+sendData({page: 'faq', action: 'click', label: 'question', ZID: 1234})
+
+//category
+sendData({page: 'faq', action: 'click', label: 'question', category: 'beta'})
+```
+</script></section><section data-markdown><script type="text/template">
+Objeto Exacto
+
+```js
+type Event = {|
+  page: string,
+  action: string,
+  label: string,
+  id?: number,
+  isError?: boolean
+|}
+```
+</script></section><section data-markdown><script type="text/template">
+Borrando pruebas
+
+```js
+describe('sendData', () => {
+  context('correct arguments', () => {
+    //(...)
+  })
+  context('incorrect arguments', () => {
+    it('throws error when receives only page')
+    it('throws error when receives only label')
+    it('throws error when receives only action')
+    it('throws error when receives only page and label')
+    it('throws error when receives only page and action')
+    it('throws error when receives only label and action')
+  })
+})
+```
+
+```js
+describe('sendData', () => {
+  //(...)
+})
+```
+</script></section><section data-markdown><script type="text/template">
+* empezar con algunos archivos
+  * `// @flow`
+  * más archivos usando -> verificación de integración entre ellos
+* las notas del flow se borran
+
+* Editores: Vim, Emacs, Sublime, Atom, Visual Studio Code, IntelliJ (syntax)
+* Alternativa: TypeScript (Microsoft)
+</script></section></section><section ><section data-markdown><script type="text/template">
+## ¿The end?
+</script></section><section data-markdown><script type="text/template">
+github **@roberto**
+
+twitter **@bt1**
+
+React, Redux, Elm, Functional Programming, Babel,
+Flow, Ruby, Haskell, Continuous Delivery, Buenas Practicas, TDD
+</script></section></section></div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+              { src: 'plugin/math/math.js', async: true }
+            ];
+
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default',
+              dependencies: deps
+            };
+
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+
+            var options = {};
+            options = extend(defaultOptions, options, queryOptions);
+            Reveal.initialize(options);
+        </script>
+        
+          <script src="/scripts/flow-type-talk"></script>
+    </body>
+</html>
+
