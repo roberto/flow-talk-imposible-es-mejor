@@ -135,6 +135,10 @@ sendAnalytics({page: 'step4', action: 'click'})
 sendAnalytics()
 ```
 
+```
+Uncaught Error: Cannot send event
+```
+
 ----
 
 ```js
@@ -376,6 +380,39 @@ const sendAnalytics = (data) => {
 ---
 
 ## ¿The end?
+
+----
+
+Functions
+
+```js
+type sendAnalytics = (Event) => void
+const sendAnalytics: sendAnalytics = (data) => {
+```
+
+Arrays y Tuples
+
+```js
+Array<number>
+[string, number]
+var foo: string = "Hello, World!";
+```
+
+React
+
+```js
+type Props = {
+  title: string,
+  visited: boolean,
+  onClick: () => void,
+};
+
+class Button extends React.Component {
+  props: Props;
+  state: {
+   display: 'static' | 'hover' | 'active';
+ }
+```
 
 ----
 
