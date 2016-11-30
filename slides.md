@@ -46,7 +46,6 @@ eventTag('step4', 'submit', 'buying', null, true) // forced to pass flowId null
 eventTag('faq', '123', true, 'not-found') // wrong values
 ```
 
-
 old school
 
 ```js
@@ -61,6 +60,8 @@ ES6 - Babel language
 
 ```js
 export const eventTag = ({category, action, label, flowId, isError}) => {
+  console.log(category)
+  console.log(action)
   //(...)
 }
 ```
@@ -81,7 +82,7 @@ TODO testes
 
 ```js
 eventTag('step4', 'submit', 'buying', null, true) // forced to pass flowId null
-eventTag({category: 'step4', action: 'submit', label: 'buying', })
+eventTag({category: 'step4', action: 'submit', label: 'buying'})
 
 eventTag('faq', '123', true, 'not-found') // wrong values
 eventTag({category: 'faq', action: '123', label: true, flowId: 'not-found'})
@@ -106,6 +107,8 @@ export const eventTag = ({category, action, label, flowId, isError}: {category: 
 }
 ```
 
+First example
+
 ```js
 type Event = {
   category: string,
@@ -121,7 +124,47 @@ export const eventTag = ({category, action, label, flowId, isError}: Event) => {
 ```
 
 ```js
-eventTag({category: 'step4'})
-eventTag({category: 'step4', action: 'click'})
-eventTag() // nope
+eventTag({category: 'step4', action: 'submit', label: 'buying', isError: false})
+```
+
+Optional values
+
+```js
+type Event = {
+  category: string,
+  action: string,
+  label: string,
+  flowId?: string,
+  isError?: boolean
+}
+
+export const eventTag = ({category, action, label, flowId, isError}: Event) => {
+  //(...)
+}
+```
+
+```js
+eventTag({category: 'faq', action: '123', label: true, flowId: 'not-found'})
+```
+
+```js
+describe('eventTag', () => {
+  context('correct arguments', () => {
+    //(...)
+  })
+  context('incorrect arguments', () => {
+    it('throws error when receives only category')
+    it('throws error when receives only label')
+    it('throws error when receives only action')
+    it('throws error when receives only category and label')
+    it('throws error when receives only category and action')
+    it('throws error when receives only label and action')
+  })
+})
+```
+
+```js
+describe('eventTag', () => {
+  //(...)
+})
 ```
