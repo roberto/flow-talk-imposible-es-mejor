@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "reveal-md slides.md --theme thoughtworks --title 'Impossible is better'",
+    "start": "reveal-md slides.md --theme thoughtworks --title 'Imposible es mejor, yendo más allá con tipos'",
     "build": "mkdir -p dist && cp -r {images,theme} dist && cp -r node_modules/reveal.js/{css,js,lib,plugin} dist && reveal-md slides.md --theme thoughtworks --title 'Impossible is better' --static > dist/index.html",
     "deploy": "npm run build && gh-pages -d dist"
   },
