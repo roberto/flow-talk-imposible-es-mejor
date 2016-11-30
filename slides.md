@@ -1,4 +1,4 @@
-# Pruebas son buenas, pero impossible es mejor
+# Pruebas son buenas, pero imposible es mejor
 <hr />
 <h4 class="subtitle">yendo más allá con tipos</h4>
 
@@ -37,6 +37,10 @@ Note: using the function. you have to check the order and types
 sendData('step4')
 sendData('step4', 'click')
 sendData()
+```
+
+```
+Uncaught Error: Cannot send event
 ```
 
 Note: Forget something and it will throw an error
@@ -161,7 +165,7 @@ const sum = (a, b) => a + b
 ```
 
 ```js
-const sum = (a: number, b: number) => a + b
+const sum = (a: number, b: number): number => a + b
 ```
 
 ```js
@@ -299,15 +303,67 @@ describe('sendData', () => {
 
 ----
 
-* empezar con algunos archivos
-  * `// @flow`
-  * más archivos usando -> verificación de integración entre ellos
-* las notas del flow se borran
+empezar con algunos archivos
+
+```js
+// @flow
+
+const sendData(...) = () => {
+```
+
+```js
+// @flow
+
+sendData(...)
+```
+
+```js
+// @flow
+
+sendData({id: sum(a, b)})
+```
+más archivos usando -> verificación de integración entre ellos
+
+----
+
+```js
+Uncaught Error: Cannot send event
+```
+
+```js
+undefined is not a function
+```
+
+----
+
+las notas del flow se borran
+
+```js
+type Event = {|
+  page: string,
+  action: string,
+  label: string,
+  id?: number,
+  isError?: boolean
+|}
+
+const sendData = (data: Event) => {
+  //(...)
+}
+```
+
+```js
+const sendData = (data) => {
+  //(...)
+}
+```
+
+----
 
 * Editores: Vim, Emacs, Sublime, Atom, Visual Studio Code, IntelliJ (syntax)
 * Alternativa: TypeScript (Microsoft)
 
----
+----
 
 ## ¿The end?
 
@@ -318,4 +374,5 @@ github **@roberto**
 twitter **@bt1**
 
 React, Redux, Elm, Functional Programming, Babel,
-Flow, Ruby, Haskell, Continuous Delivery, Buenas Practicas, TDD
+Flow, Ruby, Haskell, Continuous Delivery, Buenas Practicas, TDD,
+Juegos de Mesa, Videojuegos
