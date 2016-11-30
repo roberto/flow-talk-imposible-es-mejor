@@ -500,3 +500,7 @@ body {
   border: 0;
   box-shadow: none;
 }
+
+.reveal .slides {
+  width: 100% !important;
+}

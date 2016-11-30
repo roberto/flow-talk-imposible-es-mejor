@@ -17,7 +17,7 @@ React, Redux, Elm, Functional Programming, Babel
 Nuestro Ejemplo
 
 ```js
-function sendData (page, action, label, flowId, isError) {
+function sendData (page, action, label, id, isError) {
   if (!label || !action || !page) {
     throw new Error('Cannot send event')
   }
@@ -33,7 +33,7 @@ Note: our example
 
 ```js
 sendData('home', 'click', 'next')
-sendData('faq', 'click', 'not-found', '123', true)
+sendData('faq', 'click', 'not-found', 123, true)
 sendData('step4', 'submit', 'buying', null, false)
 ```
 
@@ -86,11 +86,11 @@ Note: A lot of tests for coverage all the scenarios
 Mismo con verificación de parámetros y pruebas...
 
 ```js
-// forced to pass flowId null
+// forced to pass id null
 sendData('step4', 'submit', 'buying', null, true)
 
 // wrong values
-sendData('faq', '123', true, 'not-found')
+sendData('faq', 123, true, 'not-found')
 ```
 
 Note: even with tests we can have a lot of issues
@@ -118,7 +118,7 @@ Note: object as argument
 ¡Babel es mi lenguaje!
 
 ```js
-const sendData = ({page, action, label, flowId, isError}) => {
+const sendData = ({page, action, label, id, isError}) => {
   console.log(page)
   console.log(action)
   //(...)
@@ -131,7 +131,7 @@ La orden no es más importante
 ```js
 sendData({page: 'home', action: 'click', label: 'next'})
 sendData({page: 'step4', action: 'submit', label: 'buying', isError: false})
-sendData({page: 'faq', action: 'click', label: 'not-found', flowId: '123', isError: true})
+sendData({page: 'faq', action: 'click', label: 'not-found', id: 123, isError: true})
 ```
 
 ----
@@ -149,11 +149,11 @@ sendData()
 Mejora algo
 
 ```js
-sendData('step4', 'submit', 'buying', null, true) // forced to pass flowId null
+sendData('step4', 'submit', 'buying', null, true) // forced to pass id null
 sendData({page: 'step4', action: 'submit', label: 'buying'})
 
-sendData('faq', '123', true, 'not-found') // wrong values
-sendData({page: 'faq', action: '123', label: true, flowId: 'not-found'})
+sendData('faq', 123, true, 'not-found') // wrong values
+sendData({page: 'faq', action: 123, label: true, id: 'not-found'})
 ```
 
 ---
@@ -202,8 +202,8 @@ src/sum.js:40
 Intentando usar
 
 ```js
-const sendData = ({page, action, label, flowId, isError}:
-  {page: string, action: string, label: string, flowId: string, isError: boolean}) => {
+const sendData = ({page, action, label, id, isError}:
+  {page: string, action: string, label: string, id: number, isError: boolean}) => {
   //(...)
 }
 ```
@@ -217,11 +217,11 @@ type Event = {
   page: string,
   action: string,
   label: string,
-  flowId: string,
+  id: number,
   isError: boolean
 }
 
-const sendData = ({page, action, label, flowId, isError}: Event) => {
+const sendData = ({page, action, label, id, isError}: Event) => {
   //(...)
 }
 ```
@@ -243,22 +243,51 @@ type Event = {
   page: string,
   action: string,
   label: string,
-  flowId?: string,
+  id?: number,
   isError?: boolean
 }
 
-const sendData = ({page, action, label, flowId, isError}: Event) => {
+const sendData = ({page, action, label, id, isError}: Event) => {
   //(...)
 }
 ```
 
 ----
 
+Más flexible
+
 ```js
 sendData({page: 'faq', action: 'click', label: 'question'})
+sendData({page: 'faq', action: 'click', label: 'question', id: 1234})
+```
+
+Pero...
+
+```js
+// ZID
+sendData({page: 'faq', action: 'click', label: 'question', ZID: 1234})
+
+//category
+sendData({page: 'faq', action: 'click', label: 'question', category: 'beta'})
 ```
 
 ----
+
+Objeto Exacto
+
+```js
+type Event = {|
+  page: string,
+  action: string,
+  label: string,
+  id?: number,
+  isError?: boolean
+|}
+```
+
+----
+
+Borrando pruebas
 
 ```js
 describe('sendData', () => {
@@ -282,9 +311,13 @@ describe('sendData', () => {
 })
 ```
 
----
+----
 
-
+* `// @flow`
+  * empeza con algunos archivos
+  * más archivos usando -> verificación de integración entre ellos
+* Editores: Vim, Sublime, Atom, Visual Studio Code
+* Alternativa: TypeScript (Microsoft)
 
 ---
 
