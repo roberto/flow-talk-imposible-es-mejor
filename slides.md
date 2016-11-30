@@ -1,56 +1,56 @@
 ```js
-export function eventTag (category, action, label, flowId, isError) {
-  if (!label || !action || !category) {
-    throw new Error('Cannot add event: label, action or category with null value')
+export function sendAnalyticsData (page, action, label, flowId, isError) {
+  if (!label || !action || !page) {
+    throw new Error('Cannot add event: label, action or page with null value')
   }
   //(...)
 }
 ```
 
 ```js
-export function eventTag (category, action, label, flowId, isError) {
+export function sendAnalyticsData (page, action, label, flowId, isError) {
   //(...)
 }
 ```
 
 ```js
-eventTag('home', 'click', 'next')
-eventTag('faq', 'click', 'not-found', '123', true)
-eventTag('step4', 'submit', 'buying', null, false)
+sendAnalyticsData('home', 'click', 'next')
+sendAnalyticsData('faq', 'click', 'not-found', '123', true)
+sendAnalyticsData('step4', 'submit', 'buying', null, false)
 ```
 
 ```js
-eventTag('step4')
-eventTag('step4', 'click')
-eventTag()
+sendAnalyticsData('step4')
+sendAnalyticsData('step4', 'click')
+sendAnalyticsData()
 ```
 
 ```js
-describe('eventTag', () => {
+describe('sendAnalyticsData', () => {
   context('correct arguments', () => {
     //(...)
   })
   context('incorrect arguments', () => {
-    it('throws error when receives only category')
+    it('throws error when receives only page')
     it('throws error when receives only label')
     it('throws error when receives only action')
-    it('throws error when receives only category and label')
-    it('throws error when receives only category and action')
+    it('throws error when receives only page and label')
+    it('throws error when receives only page and action')
     it('throws error when receives only label and action')
   })
 })
 ```
 
 ```js
-eventTag('step4', 'submit', 'buying', null, true) // forced to pass flowId null
-eventTag('faq', '123', true, 'not-found') // wrong values
+sendAnalyticsData('step4', 'submit', 'buying', null, true) // forced to pass flowId null
+sendAnalyticsData('faq', '123', true, 'not-found') // wrong values
 ```
 
 old school
 
 ```js
-export function eventTag (data) {
-  console.log(data.category)
+export function sendAnalyticsData (data) {
+  console.log(data.page)
   console.log(data.action)
   //(...)
 }
@@ -59,33 +59,33 @@ export function eventTag (data) {
 ES6 - Babel language
 
 ```js
-export const eventTag = ({category, action, label, flowId, isError}) => {
-  console.log(category)
+export const sendAnalyticsData = ({page, action, label, flowId, isError}) => {
+  console.log(page)
   console.log(action)
   //(...)
 }
 ```
 
 ```js
-eventTag({category: 'home', action: 'click', label: 'next'})
-eventTag({category: 'step4', action: 'submit', label: 'buying', isError: false})
-eventTag({category: 'faq', action: 'click', label: 'not-found', flowId: '123', isError: true})
+sendAnalyticsData({page: 'home', action: 'click', label: 'next'})
+sendAnalyticsData({page: 'step4', action: 'submit', label: 'buying', isError: false})
+sendAnalyticsData({page: 'faq', action: 'click', label: 'not-found', flowId: '123', isError: true})
 ```
 
 ```js
-eventTag({category: 'step4'})
-eventTag({category: 'step4', action: 'click'})
-eventTag()
+sendAnalyticsData({page: 'step4'})
+sendAnalyticsData({page: 'step4', action: 'click'})
+sendAnalyticsData()
 ```
 
 TODO testes
 
 ```js
-eventTag('step4', 'submit', 'buying', null, true) // forced to pass flowId null
-eventTag({category: 'step4', action: 'submit', label: 'buying'})
+sendAnalyticsData('step4', 'submit', 'buying', null, true) // forced to pass flowId null
+sendAnalyticsData({page: 'step4', action: 'submit', label: 'buying'})
 
-eventTag('faq', '123', true, 'not-found') // wrong values
-eventTag({category: 'faq', action: '123', label: true, flowId: 'not-found'})
+sendAnalyticsData('faq', '123', true, 'not-found') // wrong values
+sendAnalyticsData({page: 'faq', action: '123', label: true, flowId: 'not-found'})
 ```
 
 FLOW!!
@@ -102,7 +102,7 @@ const sum = (a: number, b: number) => a + b
 ```
 
 ```js
-export const eventTag = ({category, action, label, flowId, isError}: {category: string, action: string, label: string, flowId: string, isError: boolean}) => {
+export const sendAnalyticsData = ({page, action, label, flowId, isError}: {page: string, action: string, label: string, flowId: string, isError: boolean}) => {
   //(...)
 }
 ```
@@ -111,60 +111,60 @@ First example
 
 ```js
 type Event = {
-  category: string,
+  page: string,
   action: string,
   label: string,
   flowId: string,
   isError: boolean
 }
 
-export const eventTag = ({category, action, label, flowId, isError}: Event) => {
+export const sendAnalyticsData = ({page, action, label, flowId, isError}: Event) => {
   //(...)
 }
 ```
 
 ```js
-eventTag({category: 'step4', action: 'submit', label: 'buying', isError: false})
+sendAnalyticsData({page: 'step4', action: 'submit', label: 'buying', isError: false})
 ```
 
 Optional values
 
 ```js
 type Event = {
-  category: string,
+  page: string,
   action: string,
   label: string,
   flowId?: string,
   isError?: boolean
 }
 
-export const eventTag = ({category, action, label, flowId, isError}: Event) => {
+export const sendAnalyticsData = ({page, action, label, flowId, isError}: Event) => {
   //(...)
 }
 ```
 
 ```js
-eventTag({category: 'faq', action: '123', label: true, flowId: 'not-found'})
+sendAnalyticsData({page: 'faq', action: '123', label: true, flowId: 'not-found'})
 ```
 
 ```js
-describe('eventTag', () => {
+describe('sendAnalyticsData', () => {
   context('correct arguments', () => {
     //(...)
   })
   context('incorrect arguments', () => {
-    it('throws error when receives only category')
+    it('throws error when receives only page')
     it('throws error when receives only label')
     it('throws error when receives only action')
-    it('throws error when receives only category and label')
-    it('throws error when receives only category and action')
+    it('throws error when receives only page and label')
+    it('throws error when receives only page and action')
     it('throws error when receives only label and action')
   })
 })
 ```
 
 ```js
-describe('eventTag', () => {
+describe('sendAnalyticsData', () => {
   //(...)
 })
 ```
