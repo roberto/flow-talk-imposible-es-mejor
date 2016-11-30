@@ -16,7 +16,7 @@
     <body>
 
         <div class="reveal">
-            <div class="slides"><section  data-markdown><script type="text/template"># Pruebas son buenas, pero impossible es mejor
+            <div class="slides"><section  data-markdown><script type="text/template"># Pruebas son buenas, pero imposible es mejor
 <hr />
 <h4 class="subtitle">yendo más allá con tipos</h4>
 </script></section><section ><section data-markdown><script type="text/template">
@@ -47,6 +47,10 @@ sendData('step4', 'submit', 'buying', null, false)
 sendData('step4')
 sendData('step4', 'click')
 sendData()
+```
+
+```
+Uncaught Error: Cannot send event
 ```
 
 <aside class="notes" data-markdown>Forget something and it will throw an error</aside></script></section><section data-markdown><script type="text/template">
@@ -147,7 +151,7 @@ const sum = (a, b) => a + b
 ```
 
 ```js
-const sum = (a: number, b: number) => a + b
+const sum = (a: number, b: number): number => a + b
 ```
 
 ```js
@@ -267,14 +271,60 @@ describe('sendData', () => {
 })
 ```
 </script></section><section data-markdown><script type="text/template">
-* empezar con algunos archivos
-  * `// @flow`
-  * más archivos usando -> verificación de integración entre ellos
-* las notas del flow se borran
+empezar con algunos archivos
 
+```js
+// @flow
+
+const sendData(...) = () => {
+```
+
+```js
+// @flow
+
+sendData(...)
+```
+
+```js
+// @flow
+
+sendData({id: sum(a, b)})
+```
+más archivos usando -> verificación de integración entre ellos
+</script></section><section data-markdown><script type="text/template">
+```js
+Uncaught Error: Cannot send event
+```
+
+```js
+undefined is not a function
+```
+</script></section><section data-markdown><script type="text/template">
+las notas del flow se borran
+
+```js
+type Event = {|
+  page: string,
+  action: string,
+  label: string,
+  id?: number,
+  isError?: boolean
+|}
+
+const sendData = (data: Event) => {
+  //(...)
+}
+```
+
+```js
+const sendData = (data) => {
+  //(...)
+}
+```
+</script></section><section data-markdown><script type="text/template">
 * Editores: Vim, Emacs, Sublime, Atom, Visual Studio Code, IntelliJ (syntax)
 * Alternativa: TypeScript (Microsoft)
-</script></section></section><section ><section data-markdown><script type="text/template">
+</script></section><section data-markdown><script type="text/template">
 ## ¿The end?
 </script></section><section data-markdown><script type="text/template">
 github **@roberto**
@@ -282,7 +332,8 @@ github **@roberto**
 twitter **@bt1**
 
 React, Redux, Elm, Functional Programming, Babel,
-Flow, Ruby, Haskell, Continuous Delivery, Buenas Practicas, TDD
+Flow, Ruby, Haskell, Continuous Delivery, Buenas Practicas, TDD,
+Juegos de Mesa, Videojuegos
 </script></section></section></div>
         </div>
 
