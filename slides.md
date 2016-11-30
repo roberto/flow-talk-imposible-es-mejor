@@ -137,13 +137,13 @@ sendAnalytics()
 
 ----
 
-Mejora algo
-
 ```js
 sendAnalytics('step4', 'submit', 'buying', null, true) // forced to pass id null
 
 sendAnalytics('faq', 123, true, 'not-found') // wrong values
 ```
+
+Mejora algo
 
 ```js
 sendAnalytics({page: 'faq', action: 123, label: true, id: 'not-found'})
@@ -178,19 +178,25 @@ sum(2, 3)
 
 ----
 
+```sh
+npm run flow
+```
+
+flow server -> flow status -> shell, editor
+
+----
+
 y si...
 
 ```js
 sum(true, 3)
 ```
 
-```
-src/sum.js:40
- 40: sum(true, 2)
-         ^^^^ boolean. This type is incompatible with the expected param type of
- 38: export const sum = (a: number, b: number) => a + b
-                            ^^^^^^ number
-```
+<img src="images/flow-shell-error.png" />
+
+----
+
+<img src="images/flow-ide-error.png" />
 
 ----
 
