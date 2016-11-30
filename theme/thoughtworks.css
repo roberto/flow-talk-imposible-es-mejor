@@ -6,7 +6,7 @@
  */
 /* line 36, source/thoughtworks.scss */
 section.has-light-background, section.has-light-background h1, section.has-light-background h2, section.has-light-background h3, section.has-light-background h4, section.has-light-background h5, section.has-light-background h6 {
-  color: #333333;
+  color: #333;
 }
 
 /*********************************************
@@ -14,8 +14,8 @@ section.has-light-background, section.has-light-background h1, section.has-light
  *********************************************/
 /* line 7, template/theme.scss */
 body {
-  background: #1BB470;
-  background-color: #1BB470;
+  background: #1bb470;
+  background-color: #1bb470;
 }
 
 /* line 12, template/theme.scss */
@@ -23,21 +23,21 @@ body {
   font-family: "Open Sans", "Microsoft YaHei", "Hiragino Sans GB", "Hiragino Sans GB W3", "微软雅黑", "Helvetica Neue", Arial, sans-serif;
   font-size: 38px;
   font-weight: normal;
-  color: #FFFFFF;
+  color: #fff;
 }
 
 /* line 19, template/theme.scss */
 ::selection {
   color: #fff;
-  background: white;
   text-shadow: none;
+  background: white;
 }
 
 /* line 25, template/theme.scss */
 .reveal .slides > section,
 .reveal .slides > section > section {
-  line-height: 1.3;
   font-weight: inherit;
+  line-height: 1.3;
 }
 
 /*********************************************
@@ -51,13 +51,13 @@ body {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #FFFFFF;
   font-family: "Open Sans", "Microsoft YaHei", "Hiragino Sans GB", "Hiragino Sans GB W3", "微软雅黑", "Helvetica Neue", Arial, sans-serif;
   font-weight: 900;
   line-height: 1.2;
-  letter-spacing: normal;
-  text-transform: uppercase;
+  color: #fff;
   text-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: normal;
   word-wrap: break-word;
 }
 
@@ -120,8 +120,8 @@ body {
 .reveal dl,
 .reveal ul {
   display: inline-block;
-  text-align: left;
   margin: 0 0 0 1em;
+  text-align: left;
 }
 
 /* line 99, template/theme.scss */
@@ -171,14 +171,14 @@ body {
 
 /* line 136, template/theme.scss */
 .reveal blockquote {
-  display: block;
   position: relative;
+  display: block;
   width: 70%;
-  margin: 20px auto;
   padding: 5px;
+  margin: 20px auto;
   font-style: italic;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, .05);
+  box-shadow: 0 0 2px rgba(0, 0, 0, .2);
 }
 
 /* line 147, template/theme.scss */
@@ -194,16 +194,16 @@ body {
 
 /* line 156, template/theme.scss */
 .reveal pre {
-  display: block;
   position: relative;
+  display: block;
   width: 90%;
   margin: 20px auto;
-  text-align: left;
-  font-size: 0.55em;
   font-family: monospace;
+  font-size: .55em;
   line-height: 1.2em;
+  text-align: left;
   word-wrap: break-word;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 6px rgba(0, 0, 0, .3);
 }
 
 /* line 171, template/theme.scss */
@@ -214,19 +214,19 @@ body {
 /* line 175, template/theme.scss */
 .reveal pre code {
   display: block;
+  max-height: 400px;
   padding: 5px;
   overflow: auto;
-  max-height: 400px;
+  color: #dcdcdc;
   word-wrap: normal;
-  background: #3F3F3F;
-  color: #DCDCDC;
+  background: #3f3f3f;
 }
 
 /* line 185, template/theme.scss */
 .reveal table {
   margin: auto;
-  border-collapse: collapse;
   border-spacing: 0;
+  border-collapse: collapse;
 }
 
 /* line 191, template/theme.scss */
@@ -237,8 +237,8 @@ body {
 /* line 195, template/theme.scss */
 .reveal table th,
 .reveal table td {
+  padding: .2em .5em .2em .5em;
   text-align: left;
-  padding: 0.2em 0.5em 0.2em 0.5em;
   border-bottom: 1px solid;
 }
 
@@ -260,7 +260,7 @@ body {
 /* line 213, template/theme.scss */
 .reveal small {
   display: inline-block;
-  font-size: 0.6em;
+  font-size: .6em;
   line-height: 1.2em;
   vertical-align: top;
 }
@@ -275,11 +275,11 @@ body {
  *********************************************/
 /* line 229, template/theme.scss */
 .reveal a {
-  color: #cccccc;
+  color: #ccc;
   text-decoration: none;
   -webkit-transition: color .15s ease;
-  -moz-transition: color .15s ease;
-  transition: color .15s ease;
+     -moz-transition: color .15s ease;
+          transition: color .15s ease;
 }
 
 /* line 237, template/theme.scss */
@@ -300,24 +300,24 @@ body {
  *********************************************/
 /* line 254, template/theme.scss */
 .reveal section img {
-  margin: 15px 0px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 4px solid #FFFFFF;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  margin: 15px 0;
+  background: rgba(255, 255, 255, .12);
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .15);
 }
 
 /* line 262, template/theme.scss */
 .reveal a img {
   -webkit-transition: all .15s linear;
-  -moz-transition: all .15s linear;
-  transition: all .15s linear;
+     -moz-transition: all .15s linear;
+          transition: all .15s linear;
 }
 
 /* line 268, template/theme.scss */
 .reveal a:hover img {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: #cccccc;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+  background: rgba(255, 255, 255, .2);
+  border-color: #ccc;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .55);
 }
 
 /*********************************************
@@ -326,25 +326,25 @@ body {
 /* line 280, template/theme.scss */
 .reveal .controls div.navigate-left,
 .reveal .controls div.navigate-left.enabled {
-  border-right-color: #cccccc;
+  border-right-color: #ccc;
 }
 
 /* line 285, template/theme.scss */
 .reveal .controls div.navigate-right,
 .reveal .controls div.navigate-right.enabled {
-  border-left-color: #cccccc;
+  border-left-color: #ccc;
 }
 
 /* line 290, template/theme.scss */
 .reveal .controls div.navigate-up,
 .reveal .controls div.navigate-up.enabled {
-  border-bottom-color: #cccccc;
+  border-bottom-color: #ccc;
 }
 
 /* line 295, template/theme.scss */
 .reveal .controls div.navigate-down,
 .reveal .controls div.navigate-down.enabled {
-  border-top-color: #cccccc;
+  border-top-color: #ccc;
 }
 
 /* line 300, template/theme.scss */
@@ -372,15 +372,15 @@ body {
  *********************************************/
 /* line 321, template/theme.scss */
 .reveal .progress {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, .2);
 }
 
 /* line 324, template/theme.scss */
 .reveal .progress span {
-  background: #cccccc;
-  -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
-  -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
-  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  background: #ccc;
+  -webkit-transition: width 800ms cubic-bezier(.26, .86, .44, .985);
+     -moz-transition: width 800ms cubic-bezier(.26, .86, .44, .985);
+          transition: width 800ms cubic-bezier(.26, .86, .44, .985);
 }
 
 /*********************************************
@@ -388,12 +388,13 @@ body {
  *********************************************/
 /* line 335, template/theme.scss */
 .reveal .slide-number {
-  color: #cccccc;
+  color: #ccc;
 }
 
 /* line 46, source/thoughtworks.scss */
 .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-  letter-spacing: -0.08em;
+  letter-spacing: -.08em;
+
   text-rendering: optimizelegibility;
 }
 /* line 51, source/thoughtworks.scss */
@@ -403,15 +404,15 @@ body {
 /* line 55, source/thoughtworks.scss */
 .reveal .subtitle {
   font-size: 1em;
-  font-weight: 300;
   font-style: italic;
-  letter-spacing: normal;
+  font-weight: 300;
   text-transform: normal;
+  letter-spacing: normal;
 }
 /* line 63, source/thoughtworks.scss */
 .reveal .title {
   padding: .4em 0;
-  border-bottom: 2px solid #FFFFFF;
+  border-bottom: 2px solid #fff;
 }
 /* line 68, source/thoughtworks.scss */
 .reveal p {
@@ -423,35 +424,35 @@ body {
 }
 /* line 76, source/thoughtworks.scss */
 .reveal .pink {
-  color: #EF5BA1;
+  color: #ef5ba1;
 }
 /* line 80, source/thoughtworks.scss */
 .reveal .bg-pink {
-  background-color: #EF5BA1;
+  background-color: #ef5ba1;
 }
 /* line 84, source/thoughtworks.scss */
 .reveal .blue {
-  color: #30C7D5;
+  color: #30c7d5;
 }
 /* line 88, source/thoughtworks.scss */
 .reveal .bg-blue {
-  background-color: #30C7D5;
+  background-color: #30c7d5;
 }
 /* line 92, source/thoughtworks.scss */
 .reveal .lightgray {
-  color: #eeeeee;
+  color: #eee;
 }
 /* line 96, source/thoughtworks.scss */
 .reveal .bg-lightgray {
-  background-color: #eeeeee;
+  background-color: #eee;
 }
 /* line 100, source/thoughtworks.scss */
 .reveal .darkgray {
-  color: #333333;
+  color: #333;
 }
 /* line 104, source/thoughtworks.scss */
 .reveal .bg-darkgray {
-  background-color: #333333;
+  background-color: #333;
 }
 /* line 108, source/thoughtworks.scss */
 .reveal .white {
@@ -471,11 +472,11 @@ body {
 }
 /* line 124, source/thoughtworks.scss */
 .reveal .green {
-  color: #1BB470;
+  color: #1bb470;
 }
 /* line 128, source/thoughtworks.scss */
 .reveal .bg-green {
-  background-color: #1BB470;
+  background-color: #1bb470;
 }
 /* line 132, source/thoughtworks.scss */
 .reveal .left {
@@ -487,16 +488,15 @@ body {
 }
 /* line 141, source/thoughtworks.scss */
 .reveal code .title {
-  border-bottom: 0px;
+  border-bottom: 0;
 }
 
 
 /* custom */
 
-.reveal .picture {
-  border-radius: 50%;
-  border: 0;
-  width: 200px;
-  height: 200px;
+.reveal section img {
   margin: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
 }
