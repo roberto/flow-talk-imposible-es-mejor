@@ -1,6 +1,8 @@
-# Pruebas son buenas, pero imposible es mejor
+# Pruebas son buenas, pero imposible es mejor*
 <hr />
 <h4 class="subtitle">yendo más allá con tipos</h4>
+
+<small>*Referencia a [Richard Feldman](https://www.youtube.com/watch?v=IcgmSRJHu_8)</small>
 
 ---
 
